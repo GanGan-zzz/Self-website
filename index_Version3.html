@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yuxiao Zhou | The Data Creative</title>
+
+  <!-- Google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-color: #F9F9F7;
+      --text-primary: #111111;
+      --klein-blue: #002FA7;
+      --gen-z-yellow: #F5E050;
+      --gray-line: #E0E0E0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: 'Inter', sans-serif;
+      background:var(--bg-color);
+      color:var(--text-primary);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      transition:opacity .3s ease;
+      overflow-x:hidden;
+    }
+
+    /* Language toggle logic (default show English) */
+    [lang="zh"]{display:none}
+    [lang="en"]{display:block}
+    body.show-cn [lang="en"]{display:none}
+    body.show-cn [lang="zh"]{display:inline}
+
+    /* Typography & layout */
+    h1,h2,h3,.btn,.nav-logo,.sticker{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.5px}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .section-padding{padding:100px 0}
+    .btn{
+      display:inline-block;padding:14px 32px;font-weight:700;background:var(--text-primary);color:#fff;border:none;cursor:pointer;margin-top:20px;text-decoration:none;
+    }
+    .btn:hover{background:var(--klein-blue);transform:translateY(-2px);box-shadow:4px 4px 0 rgba(0,0,0,.2)}
+
+    /* Nav */
+    nav{padding:24px 0;position:relative;z-index:100}
+    .nav-inner{display:flex;justify-content:space-between;align-items:center}
+    .nav-logo{font-size:1.5rem;font-weight:700}
+    .nav-right{display:flex;align-items:center;gap:40px}
+    .nav-links{display:flex;gap:30px}
+    .nav-links a{font-weight:600;font-size:.9rem;color:inherit;text-decoration:none}
+    .nav-links a:hover{color:var(--klein-blue)}
+    .lang-switch{font-family:'Oswald';font-weight:700;cursor:pointer;border:2px solid var(--text-primary);padding:5px 15px;background:#fff;font-size:.8rem}
+    .lang-switch:hover{background:var(--gen-z-yellow);border-color:var(--text-primary)}
+
+    /* Hero (magazine style) */
+    .hero-magazine{display:grid;grid-template-columns:repeat(12,1fr);align-items:center;min-height:100vh;position:relative;padding-top:60px}
+    .hero-text-block{grid-column:1/9;grid-row:1;z-index:10;pointer-events:none;margin-top:-50px}
+    .hero-title-large{font-size:10vw;line-height:.85;margin-bottom:20px}
+    .hollow{color:transparent;-webkit-text-stroke:2px var(--text-primary);display:block;margin-left:10vw}
+
+    .hero-intro-card{pointer-events:auto;background:rgba(255,255,255,.85);padding:30px;max-width:480px;backdrop-filter:blur(8px);border-left:6px solid var(--klein-blue);margin-top:30px;box-shadow:0 20px 40px rgba(0,0,0,.05)}
+
+    .hero-image-block{grid-column:5/13;grid-row:1;z-index:1;height:85vh;position:relative}
+    .hero-tag{position:absolute;bottom:60px;left:-20px;background:var(--gen-z-yellow);color:#000;padding:10px 30px;font-weight:700;transform:rotate(-90deg);z-index:20;font-family:'Oswald';box-shadow:6px 6px 0 #000}
+
+    /* About */
+    .about-grid{display:grid;grid-template-columns:40% 1fr;gap:60px;align-items:center}
+    .profile-frame{position:relative;padding:15px;border:2px dashed var(--klein-blue)}
+    .profile-img{height:500px;background:#ddd;display:block;width:100%;object-fit:cover;transition:transform .3s}
+    .profile-img:hover{transform:rotate(-2deg) scale(1.02)}
+    .tags-container{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+    .tag-card{background:#fff;padding:20px;border:1px solid var(--gray-line);border-bottom:4px solid var(--gen-z-yellow}
+    .tag-title{font-weight:700;color:var(--klein-blue;display:block;font-family:'Oswald'}
+
+    /* Projects */
+    .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px}
+    .project-card{background:#fff;border:1px solid var(--gray-line);transition:0.3s;display:flex;flex-direction:column}
+    .project-card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,.1)}
+    .project-thumb{height:220px;background:#eee;position:relative;overflow:hidden}
+    .sticker{position:absolute;top:15px;right:15px;background:var(--klein-blue);color:#fff;padding:5px 12px;font-weight:700;font-size:.8rem}
+
+    /* Lab & thoughts */
+    .section-lab{background:#fff;border-top:10px solid var(--klein-blue)}
+    .lab-container{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+    .lab-viz{background:#F4F7FA;border:2px dashed var(--klein-blue);padding:40px;text-align:center;min-height:350px;display:flex;flex-direction:column;justify-content:center}
+    .stat-big{font-size:3.5rem;font-weight:700;color:var(--klein-blue);line-height:1;font-family:'Oswald'}
+
+    .thoughts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .thought-card{padding:40px;color:#fff;position:relative;min-height:280px}
+    .card-red{background:#FF2442}
+    .card-black{background:#000}
+
+    table{width:100%;border-collapse:collapse;font-size:.9rem;background:#fff;margin-top:40px}
+    th,td{text-align:left;padding:15px;border-bottom:1px solid #eee}
+    th{color:var(--klein-blue);text-transform:uppercase}
+
+    footer{background:var(--text-primary);color:#fff;text-align:center;padding:80px 0}
+
+    /* Responsive */
+    @media (max-width:768px){
+      .nav-links{display:none}
+      .hero-magazine{grid-template-columns:1fr;height:auto;padding-top:80px}
+      .hero-text-block{grid-column:1/-1;grid-row:2;margin-top:-60px;padding:0 20px}
+      .hero-image-block{grid-column:1/-1;grid-row:1;height:50vh;width:95%;margin-left:auto}
+      .hero-title-large{font-size:18vw}
+      .about-grid,.lab-container,.thoughts-grid,.tags-container{grid-template-columns:1fr}
+      .profile-img{height:350px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="nav-inner">
+        <a class="nav-logo" href="#">YUXIAO<span style="color:var(--klein-blue)">.</span>ZHOU</a>
+        <div class="nav-right">
+          <div class="nav-links">
+            <a href="#about"><span lang="en">About</span><span lang="zh">关于我</span></a>
+            <a href="#work"><span lang="en">Work</span><span lang="zh">作品集</span></a>
+            <a href="#datalab"><span lang="en">Insights</span><span lang="zh">洞察</span></a>
+          </div>
+          <div class="lang-switch" onclick="toggleLanguage()">EN / 中文</div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <header class="hero-magazine container">
+    <div class="hero-text-block">
+      <h1 class="hero-title-large">Data <br><span class="hollow">Creative</span></h1>
+
+      <div class="hero-intro-card">
+        <div lang="en">
+          <p style="font-size:1.2rem;font-weight:600;margin-bottom:15px">Hello, I'm Yuxiao.</p>
+          <p style="color:#444;margin-bottom:20px">A Product Strategist bridging logic with emotion.<br>USC Grad (STEM) | Ex-Xiaohongshu & Publicis.</p>
+          <a href="#work" class="btn">View Portfolio</a>
+        </div>
+
+        <div lang="zh">
+          <p style="font-size:1.2rem;font-weight:600;margin-bottom:15px">你好，我是周雨潇。</p>
+          <p style="color:#444;margin-bottom:20px">一位用数据讲故事的产品探索者。<br>USC 传播管理硕士 (STEM) | 前小红书及阳狮集团策略分析师。</p>
+          <a href="#work" class="btn">查看作品集</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-image-block">
+      <div class="hero-tag">USC • PRODUCT</div>
+      <img src="https://placehold.co/800x1000/333/999?text=Insert+Sunset+Photo" alt="Profile" style="width:100%;height:100%;object-fit:cover;display:block">
+    </div>
+  </header>
+
+  <section id="about" class="section-padding container">
+    <div class="about-grid">
+      <div class="profile-frame">
+        <img class="profile-img" src="https://placehold.co/600x800/eee/333?text=Insert+Mario+Hat+Photo" alt="Fun profile">
+      </div>
+      <div class="about-content">
+        <h2 lang="en" style="font-size:2.5rem;margin-bottom:20px">More Than Data Points</h2>
+        <h2 lang="zh" style="font-size:2.5rem;margin-bottom:20px">不仅是数据分析</h2>
+
+        <p lang="en" style="font-size:1.1rem;color:#444;margin-bottom:30px">
+          From Digital Media Arts at Shanghai University to Communication Management at <strong>USC</strong>, my journey has been about one core mission:
+          <span style="background:rgba(245,224,80,.3)">Using the logic of Python & SQL to capture the nuances of human behavior.</span>
+        </p>
+
+        <p lang="zh" style="font-size:1.1rem;color:#444;margin-bottom:30px">
+          从上海大学的新媒体艺术到 <strong>USC</strong> 的传播管理，我的旅程始终围绕一个命题：
+          <span style="background:rgba(245,224,80,.3)">如何利用 Python 与 SQL 的理性逻辑，去捕捉感性的用户心智。</span>
+        </p>
+
+        <div class="tags-container">
+          <div class="tag-card">
+            <span class="tag-title">The Scholar</span>
+            <div lang="en" class="tag-desc">USC Annenberg Master (STEM)<br>Top 1% Graduate</div>
+            <div lang="zh" class="tag-desc">USC 传播管理硕士 (STEM)<br>Top 1% 优秀毕业生</div>
+          </div>
+
+          <div class="tag-card">
+            <span class="tag-title">The Analyst</span>
+            <div class="tag-desc">Python, SQL, SPSS<br>Google Data Cert</div>
+          </div>
+
+          <div class="tag-card">
+            <span class="tag-title">The Strategist</span>
+            <div lang="en" class="tag-desc">Ex-Xiaohongshu Strategy<br>Ex-Publicis Groupe</div>
+            <div lang="zh" class="tag-desc">前小红书商业策略<br>前阳狮集团数据分析</div>
+          </div>
+
+          <div class="tag-card">
+            <span class="tag-title">The Creator</span>
+            <div lang="en" class="tag-desc">480k+ Content Views<br>Gen Z Insights</div>
+            <div lang="zh" class="tag-desc">48W+ 内容浏览量<br>Z 世代网感与审美</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="section-padding" style="background:#fff">
+    <div class="container">
+      <h2 lang="en" style="font-size:2.5rem;margin-bottom:50px">Selected Projects</h2>
+      <h2 lang="zh" style="font-size:2.5rem;margin-bottom:50px">精选项目经历</h2>
+
+      <div class="project-grid">
+        <div class="project-card">
+          <div class="project-thumb">
+            <div class="sticker">Strategy</div>
+            <img src="https://placehold.co/600x400/FF2442/ffffff?text=Xiaohongshu" alt="Xiaohongshu" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
+          <div class="project-body" style="padding:20px">
+            <h3 lang="en">Xiaohongshu Commercial Strategy</h3>
+            <h3 lang="zh">小红书商业化策略优化</h3>
+            <p lang="en" style="color:#666;font-size:.9rem">
+              Analyzed GMV & user profiles in 3C industry using SQL. Defined product iteration priorities and launched livestream lead-generation features.
+            </p>
+            <p lang="zh" style="color:#666;font-size:.9rem">
+              针对 3C/数码家电行业，利用 SQL 分析 GMV 与人群画像，定义产品迭代优先级，推动线索直播功能优化上线。
+            </p>
+            <p style="color:var(--klein-blue);font-size:.8rem;margin-top:20px">#ProductStrategy #SQL #B2B</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb">
+            <div class="sticker">Growth</div>
+            <img src="https://placehold.co/600x400/002FA7/ffffff?text=Publicis+Groupe" alt="Publicis" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
+          <div class="project-body" style="padding:20px">
+            <h3 lang="en">Omni-channel Data Growth</h3>
+            <h3 lang="zh">阳狮集团全渠道增长</h3>
+            <p lang="en" style="color:#666;font-size:.9rem">
+              Tracked 10+ media platforms for Aptamil. Established ROI monitoring loops and provided real-time budget optimization strategies.
+            </p>
+            <p lang="zh" style="color:#666;font-size:.9rem">
+              为达能爱他美追踪 10+ 媒体平台及竞品数据。建立 ROI 监测闭环，通过周报为客户提供实时预算调整依据。
+            </p>
+            <p style="color:var(--klein-blue);font-size:.8rem;margin-top:20px">#DataAnalysis #Visualization</p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-thumb">
+            <div class="sticker">0 to 1</div>
+            <img src="https://placehold.co/600x400/F5E050/000000?text=Business+Dev" alt="BD" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
+          <div class="project-body" style="padding:20px">
+            <h3 lang="en">0-to-1 Market Expansion (LA)</h3>
+            <h3 lang="zh">洛杉矶商户拓展 (BD)</h3>
+            <p lang="en" style="color:#666;font-size:.9rem">
+              Led a team to onboard 6 dining merchants in LA. Optimized content strategy based on data, closing the loop between offline and online traffic.
+            </p>
+            <p lang="zh" style="color:#666;font-size:.9rem">
+              带领团队在 LA 进行地推与谈判，成功签约 6 家餐饮商户。基于数据优化内容策略，实现线上线下流量闭环。
+            </p>
+            <p style="color:var(--klein-blue);font-size:.8rem;margin-top:20px">#BusinessDev #Operation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="datalab" class="section-padding section-lab">
+    <div class="container">
+      <h2 style="font-size:2.5rem;margin-bottom:40px">🧪 Data & Insight Lab</h2>
+      <div class="lab-container">
+        <div class="lab-text">
+          <h3 style="font-size:1.8rem;margin-bottom:15px">When Chatbots Get Emotional</h3>
+
+          <p style="margin-bottom:20px"><strong>The Question:</strong> Does AI "Anthropomorphism" directly improve user willingness in task-oriented work?</p>
+
+          <p style="margin-bottom:20px"><strong>The Insight:</strong> SEM analysis (N=427) confirms that <span style="color:var(--klein-blue);font-weight:700">empathy is the key lever for trust.</span> When AI shows emotional adaptability, users perceive a significantly higher Task-Technology Fit.</p>
+
+          <blockquote style="font-style:italic;color:#666;border-left:3px solid var(--klein-blue);padding-left:15px">
+            "To increase adoption, build empathy, not just efficiency."
+          </blockquote>
+        </div>
+
+        <div class="lab-viz">
+          <div class="stat-big">N = 427</div>
+          <p style="opacity:.9">Valid Samples (Yangtze River Delta)</p>
+          <div style="margin:30px 0;width:50%;height:2px;background:#ddd"></div>
+          <img src="https://placehold.co/400x200/e1e1e1/666?text=SEM+Chart+Visualization" alt="Chart" style="opacity:.6;width:80%;height:auto">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="thoughts" class="section-padding container">
+    <h2 style="font-size:2.5rem;margin-bottom:40px">💡 Product Thoughts</h2>
+
+    <div class="thoughts-grid">
+      <div class="thought-card card-red">
+        <span style="opacity:.8;letter-spacing:1px;font-size:.8rem">UTILITY FIRST</span>
+        <h3 style="font-size:1.8rem;margin:10px 0">Xiaohongshu (Red)</h3>
+        <p style="margin-top:20px;opacity:.9">
+          Not just a community, but a <strong>Decision Engine</strong>. Users seek "Real People, Real Problems."
+          <br><strong>Insight:</strong> Trust is the moat. Commercialization must insert into the decision flow without breaking authenticity.
+        </p>
+      </div>
+
+      <div class="thought-card card-black">
+        <span style="opacity:.8;letter-spacing:1px;font-size:.8rem">ENGAGEMENT FIRST</span>
+        <h3 style="font-size:1.8rem;margin:10px 0">TikTok / Douyin</h3>
+        <p style="margin-top:20px;opacity:.9">
+          Full-screen UI removes choice but maximizes algorithm hits — the ultimate "passive consumption".
+          <br><strong>Challenge:</strong> How to switch users from "Kill Time" to "Save Time"?
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-top:30px" class="comparison-wrapper">
+      <table>
+        <thead>
+          <tr><th>Feature</th><th>Xiaohongshu</th><th>TikTok</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Core Logic</strong></td><td>Search & Discover (主动搜索)</td><td>Feed & Recommend (被动投喂)</td></tr>
+          <tr><td><strong>User Intent</strong></td><td>Decision Making (决策)</td><td>Entertainment (娱乐)</td></tr>
+          <tr><td><strong>My Insight</strong></td><td>Trust Graph (信任链)</td><td>Interest Graph (兴趣图谱)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div style="font-size:2.5rem;font-family:'Oswald';margin-bottom:30px">Let's frame the future together.</div>
+      <img src="https://placehold.co/100x100/333/fff?text=Hand" style="width:80px;height:80px;border-radius:50%;margin:0 auto 20px;border:2px solid #fff;display:block">
+      <p style="font-size:1.2rem;margin-bottom:10px">yzhou435@usc.edu</p>
+      <p><a href="#" style="color:#fff;text-decoration:underline">LinkedIn Profile</a></p>
+      <div style="margin-top:50px;opacity:.4;font-size:.8rem">© 2025 Yuxiao Zhou. Designed with Data & Creativity.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Persisted language state
+    (function(){
+      const saved = localStorage.getItem('site-lang');
+      if(saved === 'zh'){
+        document.body.classList.add('show-cn');
+        window.currentLang = 'zh';
+      } else {
+        document.body.classList.remove('show-cn');
+        window.currentLang = 'en';
+      }
+    })();
+
+    function toggleLanguage(){
+      const body = document.body;
+      if(window.currentLang === 'en'){
+        body.classList.add('show-cn');
+        window.currentLang = 'zh';
+        localStorage.setItem('site-lang','zh');
+      } else {
+        body.classList.remove('show-cn');
+        window.currentLang = 'en';
+        localStorage.setItem('site-lang','en');
+      }
+    }
+  </script>
+</body>
+</html>
